@@ -30,7 +30,7 @@
                     @foreach($bookings as $booking)
                         <div class="relative flex flex-col justify-between overflow-hidden transition duration-300 border border-gray-200 md:flex-row rounded-2xl bg-gray-50 hover:shadow-xl hover:shadow-indigo-500/10">
                             
-                            <div class="flex-1 p-6 flex flex-col justify-between">
+                            <div class="flex flex-col justify-between flex-1 p-6">
                                 <div>
                                     <div class="mb-3">
                                         @if($booking->status === 'pending')
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <p class="text-xs font-bold tracking-widest text-indigo-600 uppercase">{{ $booking->ticket_code }}</p>
-                                    <h2 class="mt-1 text-xl font-bold text-gray-900 line-clamp-2 leading-tight">{{ $booking->event->title }}</h2>
+                                    <h2 class="mt-1 text-xl font-bold leading-tight text-gray-900 line-clamp-2">{{ $booking->event->title }}</h2>
                                 </div>
 
                                 <div class="pt-4 mt-6 space-y-1.5 text-xs text-gray-600 border-t border-gray-200">
@@ -57,19 +57,20 @@
                                     </div>
                                     <div class="flex justify-between">
                                         <span>Total Bayar:</span>
-                                        <span class="font-bold text-indigo-600 text-sm">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span>
+                                        <span class="text-sm font-bold text-indigo-600">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="hidden md:flex flex-col justify-between items-center py-2 w-1 relative">
-                                <div class="w-4 h-4 bg-white border-b border-r border-gray-200 rounded-full -mt-4 -mr-4 transform rotate-45"></div>
-                                <div class="h-full border-l-2 border-dashed border-gray-300 my-2"></div>
-                                <div class="w-4 h-4 bg-white border-t border-l border-gray-200 rounded-full -mb-4 -ml-4 transform rotate-45"></div>
+                            <div class="relative flex-col items-center justify-between hidden w-1 py-2 md:flex">
+                                <div class="w-4 h-4 -mt-4 -mr-4 transform rotate-45 bg-white border-b border-r border-gray-200 rounded-full"></div>
+                                <div class="h-full my-2 border-l-2 border-gray-300 border-dashed"></div>
+                                <div class="w-4 h-4 -mb-4 -ml-4 transform rotate-45 bg-white border-t border-l border-gray-200 rounded-full"></div>
                             </div>
 
                             <div class="flex flex-col items-center justify-center p-6 bg-gray-100/70 border-t-2 border-dashed md:border-t-0 md:border-l border-gray-200 text-center md:w-44 min-w-[170px]">
-                                <div class="p-2 bg-white rounded-xl border border-gray-200 shadow-sm">
+                                <div class="p-2 bg-white border border-gray-200 shadow-sm rounded-xl">
+                                    {{-- qr generate --}}
                                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ $booking->ticket_code }}" alt="QR Code" class="w-24 h-24">
                                 </div>
                                 <p class="text-[10px] font-mono text-gray-400 mt-2 tracking-widest">SCAN REGISTRASI</p>
