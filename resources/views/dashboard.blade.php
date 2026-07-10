@@ -3,19 +3,27 @@
         <h1 class="mb-6 text-2xl font-bold text-gray-800">Pilihan Seminar Akademik</h1>
         
         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-            @foreach($events as $event)
+            @forelse($events as $event)
                 <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
-                    <span class="px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded">{{ $event->category }}</span>
+                    <span class="px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded">
+                        {{ $event->category }}
+                    </span>
                     <h2 class="mt-2 text-lg font-bold text-gray-900">{{ $event->title }}</h2>
                     <p class="text-sm text-gray-600">Pembicara: {{ $event->speaker }}</p>
-                    <p class="mt-2 text-sm font-semibold text-indigo-600">Harga: Rp {{ number_format($event->price, 0, ',', '.') }}</p>
+                    <p class="mt-2 text-sm font-semibold text-indigo-600">
+                        Harga: Rp {{ number_format($event->price, 0, ',', '.') }}
+                    </p>
                     <p class="mt-1 text-xs text-gray-500">Sisa Kuota: {{ $event->ticket_quantity }}</p>
                     
                     <a href="{{ route('event.show', $event->id) }}" class="block py-2 mt-4 text-sm font-semibold text-center text-white transition bg-indigo-600 rounded-md hover:bg-indigo-700">
                         Lihat Detail
                     </a>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-span-1 p-6 text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm md:col-span-3">
+                    Belum ada pilihan seminar akademik yang tersedia saat ini.
+                </div>
+            @endforelse
         </div>
     </div>
 </x-app-layout>

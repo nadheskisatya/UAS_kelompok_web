@@ -1,20 +1,21 @@
-<!-- <x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            Panel Admin - Verifikasi Tiket
+            {{ __('Panel Admin - Verifikasi Tiket') }}
         </h2>
     </x-slot>
 
     <div class="py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md">
             
+            {{-- Flash Message Success/Error --}}
             @if(session('success'))
-                <div class="p-4 mb-4 text-green-800 bg-green-100 rounded">
+                <div class="p-4 mb-4 text-green-800 bg-green-100 rounded-lg">
                     {{ session('success') }}
                 </div>
             @endif
             @if(session('error'))
-                <div class="p-4 mb-4 text-red-800 bg-red-100 rounded">
+                <div class="p-4 mb-4 text-red-800 bg-red-100 rounded-lg">
                     {{ session('error') }}
                 </div>
             @endif
@@ -37,9 +38,10 @@
                         @forelse($bookings as $booking)
                             <tr class="transition hover:bg-gray-50">
                                 <td class="px-4 py-3 border-b">{{ $booking->created_at->format('d M Y H:i') }}</td>
-                                <td class="px-4 py-3 font-semibold border-b">{{ $booking->user->name }}</td>
+                                <td class="px-4 py-3 font-semibold border-b">{{ $booking->user->name ?? 'User Terhapus' }}</td>
+                                <td class="px-4 py-3 border-b">{{ $booking->event->name ?? 'Event Konten' }}</td>
                                 <td class="px-4 py-3 border-b">
-                                    Rp {{ number_format($booking->total_price, 0, ',', '.') }}<br>
+                                    <span class="font-medium">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span><br>
                                     @if($booking->payment_proof)
                                         <a href="{{ asset('storage/' . $booking->payment_proof) }}" target="_blank" class="text-xs text-blue-600 hover:underline">Lihat Bukti</a>
                                     @else
@@ -80,4 +82,4 @@
             </div>
         </div>
     </div>
-</x-app-layout> -->
+</x-app-layout>
