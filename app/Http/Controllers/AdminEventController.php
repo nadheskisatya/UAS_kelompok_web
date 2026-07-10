@@ -74,6 +74,8 @@ class AdminEventController extends Controller
                 Storage::disk('public')->delete($event->image);
             }
             $validated['image'] = $request->file('image')->store('event_posters', 'public');
+        } else {
+            unset($validated['image']);
         }
 
         $event->update($validated);

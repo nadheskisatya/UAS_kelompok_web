@@ -5,8 +5,18 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl py-12 mx-auto sm:px-6 lg:px-8">
-        <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+    <div class="py-12 mx-auto max-w-4xl sm:px-6 lg:px-8">
+        <div class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
+
+            @if ($errors->any())
+                <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
+                    <ul class="pl-5 list-disc">
+                        @foreach ($errors->all() as $error)
+                            <li>File Terlalu Besar Maksimal Berukuran 2MB</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <form action="{{ route('admin.events.update', $event->id) }}"
                 method="POST"
@@ -24,7 +34,7 @@
                             name="title"
                             value="{{ old('title', $event->title) }}"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
 
                     <div>
@@ -34,7 +44,7 @@
                             name="speaker"
                             value="{{ old('speaker', $event->speaker) }}"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
 
                     <div>
@@ -44,14 +54,14 @@
                             name="category"
                             value="{{ old('category', $event->category) }}"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
 
                     <div>
                         <label>Tipe Pelaksanaan</label>
                         <select
                             name="type"
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                             <option value="online" {{ $event->type=='online' ? 'selected' : '' }}>
                                 Online (Zoom/Meet)
                             </option>
@@ -69,7 +79,7 @@
                             name="event_date"
                             value="{{ old('event_date', \Carbon\Carbon::parse($event->event_date)->format('Y-m-d\TH:i')) }}"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
 
                     <div>
@@ -79,7 +89,7 @@
                             name="location"
                             value="{{ old('location', $event->location) }}"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
 
                     <div>
@@ -90,7 +100,7 @@
                             value="{{ old('price', $event->price) }}"
                             min="0"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
 
                     <div>
@@ -101,7 +111,7 @@
                             value="{{ old('ticket_quantity', $event->ticket_quantity) }}"
                             min="1"
                             required
-                            class="block w-full mt-1 border-gray-300 rounded-md">
+                            class="block mt-1 w-full rounded-md border-gray-300">
                     </div>
                 </div>
 
@@ -111,16 +121,16 @@
                         name="description"
                         rows="4"
                         required
-                        class="block w-full mt-1 border-gray-300 rounded-md">{{ old('description', $event->description) }}</textarea>
+                        class="block mt-1 w-full rounded-md border-gray-300">{{ old('description', $event->description) }}</textarea>
                 </div>
                 
                 <div class="mt-6">
-                    <label>Update Poster (Opsional)</label>
+                    <label>Update Poster (Maksimal 2MB)</label>
                     <input
                         type="file"
                         name="image"
                         accept="image/*"
-                        class="block w-full mt-1">
+                        class="block mt-1 w-full">
                     <p class="mt-1 text-xs text-gray-500">
                         Biarkan kosong jika tidak ingin mengubah gambar.
                     </p>
